@@ -1,0 +1,11 @@
+﻿@model MathGame.Models.MathQuestion
+@{
+    ViewData["Title"] = "Random";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>View</h1>
+<h2>@Model.num1</h2>
+<h2>@Model.num2</h2>
+<h3>@Model.GetQuestion()</h3>
+
