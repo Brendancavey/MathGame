@@ -1,4 +1,4 @@
-﻿@model MathGame.Models.QuestionModel
+﻿@model MathGame.Models.ViewModels.QuestionModel
 @{
     ViewData["Title"] = "Random";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,19 +7,19 @@
 <h1>Question</h1>
 
 <h3>@Model.question.getQuestion()</h3>
-<form asp-action="Random" asp-controller="MathQuestion">
-    <h3 asp-for="score" style="text-align:right;">Score @Model.user.score</h3>
-    <label asp-for="question.user_answer">Answer:</label>
+<h3 style="text-align:right">Score @Model.user.score</h3>
+
+<form asp-action="Random" asp-controller="MathQuestion" method="post">
+    <input type="hidden" asp-for="question.num1" value=@Model.question.num1/>
+    <input type="hidden" asp-for="question.num2" value=@Model.question.num2/>
+    <input type="hidden" asp-for="question.answer" value=@Model.question.answer/>
+    <input type="hidden" asp-for="user" value=@Model.user/>
+    <input type="hidden" asp-for="user.score" value=@Model.user.score/>
+    <label>Answer:</label>
     <input asp-for="question.user_answer" autofocus="autofocus" />
     <button type="submit" class="btn btn-info" id="submit" value ="submit" name="submit">Submit</button>
 </form>
 
-
-@if (Model.question.score == 0)
-{
-    <p>Your score is 0</p>
-}
 @*
     This is a comment
 *@
-
