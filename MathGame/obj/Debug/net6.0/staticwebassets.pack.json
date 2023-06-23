@@ -85,6 +85,10 @@
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
     },
     {
+      "Id": "C:\\Users\\bthoe\\source\\repos\\MathGame\\MathGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-sketchy.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-sketchy.css"
+    },
+    {
       "Id": "C:\\Users\\bthoe\\source\\repos\\MathGame\\MathGame\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-theme.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-theme.css"
     },
