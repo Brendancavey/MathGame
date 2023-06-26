@@ -3,11 +3,12 @@
     ViewData["Title"] = "Random";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    var endTime = DateTime.Now.AddSeconds(3);
+    var endTime = DateTime.Now.AddSeconds(10);
     int timeRemaining = Convert.ToInt32(TimeSpan.FromTicks(endTime.Ticks - DateTime.Now.Ticks).TotalSeconds);
 }
 <h1>Time Remaining: <span id="secRemaining"></span></h1>
 <h1>Question</h1>
+<!---<p>Difficulty: @Model.question.difficulty</p>-->
 
 <h3>@Model.question.getQuestion()</h3>
 <h3 style="text-align:right">Score @Model.user.score</h3>
@@ -16,6 +17,7 @@
     <input type="hidden" asp-for="question.num1" value=@Model.question.num1/>
     <input type="hidden" asp-for="question.num2" value=@Model.question.num2/>
     <input type="hidden" asp-for="question.answer" value=@Model.question.answer/>
+    <input type="hidden" asp-for="question.difficulty" value="@Model.question.difficulty"/>
     <input type="hidden" asp-for="user" value=@Model.user/>
     <input type="hidden" asp-for="user.score" value=@Model.user.score/>
     
@@ -26,7 +28,7 @@
 <form asp-action="Scoreboard" asp-asp-controller="MathQuestion" >
     <input type="hidden" asp-for="user.score" value=@Model.user.score />
     <input type="hidden" asp-for="user.Id" value="@Model.user.Id" />
-    <button type="submit" hidden id="Done">Done</button>
+    <button type="submit" id="Done">Done</button>
 </form>
 
 
