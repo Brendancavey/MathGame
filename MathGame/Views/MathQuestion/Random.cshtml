@@ -3,7 +3,7 @@
     ViewData["Title"] = "Random";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    var endTime = DateTime.Now.AddSeconds(10);
+    var endTime = DateTime.Now.AddSeconds(3);
     int timeRemaining = Convert.ToInt32(TimeSpan.FromTicks(endTime.Ticks - DateTime.Now.Ticks).TotalSeconds);
 }
 <h1>Time Remaining: <span id="secRemaining"></span></h1>
@@ -18,9 +18,15 @@
     <input type="hidden" asp-for="question.answer" value=@Model.question.answer/>
     <input type="hidden" asp-for="user" value=@Model.user/>
     <input type="hidden" asp-for="user.score" value=@Model.user.score/>
+    
     <label>Answer:</label>
     <input asp-for="question.user_answer" autofocus="autofocus" />
     <button type="submit" class="btn btn-info" id="submit" value ="submit" name="submit">Submit</button>
+</form>
+<form asp-action="Scoreboard" asp-asp-controller="MathQuestion" >
+    <input type="hidden" asp-for="user.score" value=@Model.user.score />
+    <input type="hidden" asp-for="user.Id" value="@Model.user.Id" />
+    <button type="submit" hidden id="Done">Done</button>
 </form>
 
 
@@ -39,8 +45,9 @@
             }
             else
             {
-                alert("Your final score is: " + @Model.user.score);
+                //alert("Your final score is: " + @Model.user.score);
                 clearInterval(_tick);
+                document.getElementById('Done').click();
             }
 
         }, 1000); 

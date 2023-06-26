@@ -59,6 +59,15 @@ namespace MathGame.Controllers
             ModelState.Clear();
             return View(viewModel);
         }
-
+        [HttpPost]
+        public ActionResult Scoreboard(QuestionModel model)
+        {
+            User user = new User()
+            {
+                score = model.user.score
+            };
+            return View(user);
+            
+        }
     }
 }
