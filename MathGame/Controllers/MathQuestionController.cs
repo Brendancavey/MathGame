@@ -18,7 +18,6 @@ namespace MathGame.Controllers
         [HttpGet]
         public IActionResult Random()
         {
-            Random rand = new Random();
             var math_question = new MathQuestion();
             
             var user = new User()
@@ -54,8 +53,8 @@ namespace MathGame.Controllers
                 user = user
             };
 
-            // mathGameDbContext.users.Add(user);
-            // mathGameDbContext.SaveChanges();
+            mathGameDbContext.mathQuestions.Add(model.question);
+            mathGameDbContext.SaveChanges();
 
             ModelState.Clear();
             return View(viewModel);

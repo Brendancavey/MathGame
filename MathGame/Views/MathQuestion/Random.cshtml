@@ -2,8 +2,11 @@
 @{
     ViewData["Title"] = "Random";
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
 
+    var endTime = DateTime.Now.AddSeconds(10);
+    int timeRemaining = Convert.ToInt32(TimeSpan.FromTicks(endTime.Ticks - DateTime.Now.Ticks).TotalSeconds);
+}
+<h1>Time Remaining: <span id="secRemaining"></span></h1>
 <h1>Question</h1>
 
 <h3>@Model.question.getQuestion()</h3>
@@ -19,7 +22,19 @@
     <input asp-for="question.user_answer" autofocus="autofocus" />
     <button type="submit" class="btn btn-info" id="submit" value ="submit" name="submit">Submit</button>
 </form>
+<script>
+    var remainingSeconds = @timeRemaining;
+    function startTick(){
+        document.getElementById('secRemaining').innerText = remainingSeconds;
 
+        var _tick = setInterval(function () { //exectute function every 1000 milisecs
+            remainingSeconds = remainingSeconds-1;
+            document.getElementById('secRemaining').innerText = remainingSeconds;
+
+        }, 1000); 
+    }
+    startTick();
+</script>
 @*
     This is a comment
 *@
