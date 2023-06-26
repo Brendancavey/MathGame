@@ -22,14 +22,26 @@
     <input asp-for="question.user_answer" autofocus="autofocus" />
     <button type="submit" class="btn btn-info" id="submit" value ="submit" name="submit">Submit</button>
 </form>
+
+
+
 <script>
     var remainingSeconds = @timeRemaining;
     function startTick(){
         document.getElementById('secRemaining').innerText = remainingSeconds;
 
-        var _tick = setInterval(function () { //exectute function every 1000 milisecs
-            remainingSeconds = remainingSeconds-1;
-            document.getElementById('secRemaining').innerText = remainingSeconds;
+        var _tick = setInterval(function () //exectute function every 1000 milisecs
+        { 
+            if(remainingSeconds > 0)
+            {
+                remainingSeconds = remainingSeconds-1;
+                document.getElementById('secRemaining').innerText = remainingSeconds;
+            }
+            else
+            {
+                alert("Your final score is: " + @Model.user.score);
+                clearInterval(_tick);
+            }
 
         }, 1000); 
     }

@@ -28,7 +28,7 @@ namespace MathGame.Controllers
             var viewModel = new QuestionModel()
             {
                 question = math_question,
-                user = user
+                user = user,
             };
             //mathGameDbContext.users.Add(user);
             //mathGameDbContext.SaveChanges();
