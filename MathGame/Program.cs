@@ -13,7 +13,7 @@ builder.Services.AddDbContext<MathGameDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("MathGameDbConnectionString")));
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(/*options => options.SignIn.RequireConfirmedAccount = true*/)
-    .AddEntityFrameworkStores<MathGameDbContext>();
+    .AddEntityFrameworkStores<MathGameDbContext>().AddDefaultTokenProviders();
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 var app = builder.Build();

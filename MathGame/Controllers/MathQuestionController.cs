@@ -4,6 +4,9 @@ using System.Security.Cryptography.X509Certificates;
 using MathGame.Data;
 using MathGame.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using MathGame.Utility;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace MathGame.Controllers
 {
@@ -14,7 +17,8 @@ namespace MathGame.Controllers
         {
             this.mathGameDbContext = mathGameDbContext;
         }
-
+        //[Area("Admin")]
+        //[Authorize(Roles = StaticDetails.Role_Admin)]
         [HttpGet]
         public IActionResult Random()
         {
@@ -35,7 +39,7 @@ namespace MathGame.Controllers
             //mathGameDbContext.SaveChanges();
             return View(viewModel);
         }
-
+        
         [HttpPost]
         public ActionResult Random(QuestionModel model)
         {
