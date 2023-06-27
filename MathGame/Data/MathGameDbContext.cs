@@ -13,7 +13,7 @@ namespace MathGame.Data
 
         public DbSet<MathQuestion> mathQuestions { get; set; }
 
-        public DbSet <User> users { get; set; }
+        public DbSet <ApplicationUser> users { get; set; }
     }
 
 }

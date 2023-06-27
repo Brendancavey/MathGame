@@ -2,6 +2,8 @@
 using MathGame.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using MathGame.Utility;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,9 +12,10 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<MathGameDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("MathGameDbConnectionString")));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(/*options => options.SignIn.RequireConfirmedAccount = true*/)
     .AddEntityFrameworkStores<MathGameDbContext>();
-builder.Services.AddRazorPages(); 
+builder.Services.AddRazorPages();
+builder.Services.AddScoped<IEmailSender, EmailSender>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

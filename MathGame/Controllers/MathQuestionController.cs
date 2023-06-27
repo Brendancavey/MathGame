@@ -21,7 +21,7 @@ namespace MathGame.Controllers
             Random rand = new Random();
             var math_question = new MathQuestion();
             
-            var user = new User()
+            var user = new ApplicationUser()
             {
                 name = "Bob",
                 score = 0
