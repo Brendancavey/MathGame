@@ -82,7 +82,7 @@ namespace MathGame.Controllers
         [HttpPost]
         public ActionResult Scoreboard(QuestionModel model)
         {
-            User user = new User()
+            var user = new ApplicationUser()
             {
                 score = model.user.score
             };
