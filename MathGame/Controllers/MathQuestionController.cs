@@ -18,7 +18,6 @@ namespace MathGame.Controllers
         [HttpGet]
         public IActionResult Random()
         {
-            Random rand = new Random();
             var math_question = new MathQuestion();
             
             var user = new User()
@@ -29,7 +28,7 @@ namespace MathGame.Controllers
             var viewModel = new QuestionModel()
             {
                 question = math_question,
-                user = user
+                user = user,
             };
             //mathGameDbContext.users.Add(user);
             //mathGameDbContext.SaveChanges();
@@ -39,12 +38,27 @@ namespace MathGame.Controllers
         [HttpPost]
         public ActionResult Random(QuestionModel model)
         {
+            Random rand = new Random();
             var user_answer = model.question.user_answer;
             if (user_answer == model.question.answer)
             {
                 model.user.score += 1;
             }
-            var question = new MathQuestion();
+            else if (model.user.score > 0)
+            {
+                model.user.score -= 1;
+            }
+            if (model.user.score % 5 == 0 && model.user.score > 0)
+            {
+                model.question.difficulty += 1;
+            }
+            var question = new MathQuestion()
+            {
+                num1 = (rand.Next(1, 11)) * (model.question.difficulty),
+                num2 = (rand.Next(1, 11)) * (model.question.difficulty),
+                difficulty = model.question.difficulty,
+            };
+            question.getNewAnswer();
 
             var user = model.user;
 
@@ -54,12 +68,22 @@ namespace MathGame.Controllers
                 user = user
             };
 
-            // mathGameDbContext.users.Add(user);
-            // mathGameDbContext.SaveChanges();
+            //mathGameDbContext.mathQuestions.Add(model.question);
+            //mathGameDbContext.SaveChanges();
 
             ModelState.Clear();
             return View(viewModel);
-        }
 
+        }
+        [HttpPost]
+        public ActionResult Scoreboard(QuestionModel model)
+        {
+            User user = new User()
+            {
+                score = model.user.score
+            };
+            return View(user);
+            
+        }
     }
 }
