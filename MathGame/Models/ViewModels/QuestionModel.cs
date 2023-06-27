@@ -3,7 +3,6 @@
     public class QuestionModel
     {
         public MathQuestion question { get; set; }
-        public User user { get; set; }
-        
+        public ApplicationUser user { get; set; }
     }
 }

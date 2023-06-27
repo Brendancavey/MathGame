@@ -1,4 +1,6 @@
 ﻿@model MathGame.Models.ViewModels.QuestionModel
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
 @{
     ViewData["Title"] = "Random";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,6 +9,8 @@
     int timeRemaining = Convert.ToInt32(TimeSpan.FromTicks(endTime.Ticks - DateTime.Now.Ticks).TotalSeconds);
 }
 <h1>Time Remaining: <span id="secRemaining"></span></h1>
+}
+<h1>Hello @UserManager.GetUserName(User)!</h1>
 <h1>Question</h1>
 <!---<p>Difficulty: @Model.question.difficulty</p>-->
 

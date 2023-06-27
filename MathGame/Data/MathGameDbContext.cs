@@ -1,9 +1,10 @@
 ﻿using MathGame.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace MathGame.Data
 {
-    public class MathGameDbContext : DbContext
+    public class MathGameDbContext : IdentityDbContext
     {
         public MathGameDbContext(DbContextOptions options) : base(options)
         {
@@ -12,7 +13,7 @@ namespace MathGame.Data
 
         public DbSet<MathQuestion> mathQuestions { get; set; }
 
-        public DbSet <User> users { get; set; }
+        public DbSet <ApplicationUser> users { get; set; }
     }
 
 }

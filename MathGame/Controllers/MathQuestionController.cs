@@ -4,6 +4,9 @@ using System.Security.Cryptography.X509Certificates;
 using MathGame.Data;
 using MathGame.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using MathGame.Utility;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace MathGame.Controllers
 {
@@ -14,13 +17,14 @@ namespace MathGame.Controllers
         {
             this.mathGameDbContext = mathGameDbContext;
         }
-
+        //[Area("Admin")]
+        //[Authorize(Roles = StaticDetails.Role_Admin)]
         [HttpGet]
         public IActionResult Random()
         {
             var math_question = new MathQuestion();
             
-            var user = new User()
+            var user = new ApplicationUser()
             {
                 name = "Bob",
                 score = 0
@@ -34,7 +38,7 @@ namespace MathGame.Controllers
             //mathGameDbContext.SaveChanges();
             return View(viewModel);
         }
-
+        
         [HttpPost]
         public ActionResult Random(QuestionModel model)
         {
@@ -78,7 +82,7 @@ namespace MathGame.Controllers
         [HttpPost]
         public ActionResult Scoreboard(QuestionModel model)
         {
-            User user = new User()
+            var user = new ApplicationUser()
             {
                 score = model.user.score
             };
