@@ -80,14 +80,24 @@ namespace MathGame.Controllers
 
         }
         [HttpPost]
-        public ActionResult Scoreboard(QuestionModel model)
+        public async Task<IActionResult> Scoreboard(QuestionModel model)
         {
-            var user = new ApplicationUser()
+            var player = await mathGameDbContext.users.FindAsync(model.user.Id);
+            if (player != null)
             {
-                score = model.user.score
+                if (model.user.score > player.score)
+                {
+                    player.name = model.user.name;
+                    player.score = model.user.score;
+                    await mathGameDbContext.SaveChangesAsync();
+                }
+            }
+            var viewModel = new ScoreboardModel()
+            {
+                user = model.user,
+                allUsers = await mathGameDbContext.users.ToListAsync()
             };
-            return View(user);
-            
+            return View(viewModel);
         }
     }
 }

@@ -1,10 +1,26 @@
-﻿@model MathGame.Models.ApplicationUser
+﻿@model MathGame.Models.ViewModels.ScoreboardModel
 
 @{
     ViewData["Title"] = "Scoreboard";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h1>Your final score is: @Model.score</h1>
-
+<h1>Your final score: @Model.user.score</h1>
+<h1>Leaderboards</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>High Score</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.allUsers)
+        {
+            <tr>
+                <td>@user.name</td>
+                <td>@user.score</td>
+            </tr>
+        }
+    </tbody>
+</table>
 

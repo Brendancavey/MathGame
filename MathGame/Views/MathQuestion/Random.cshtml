@@ -9,9 +9,7 @@
     int timeRemaining = Convert.ToInt32(TimeSpan.FromTicks(endTime.Ticks - DateTime.Now.Ticks).TotalSeconds);
 }
 <h1>Time Remaining: <span id="secRemaining"></span></h1>
-<h1>Hello @UserManager.GetUserName(User)!</h1>
 <h1>Question</h1>
-<!---<p>Difficulty: @Model.question.difficulty</p>-->
 
 <h3>@Model.question.getQuestion()</h3>
 <h3 style="text-align:right">Score @Model.user.score</h3>
@@ -30,7 +28,8 @@
 </form>
 <form asp-action="Scoreboard" asp-asp-controller="MathQuestion" >
     <input type="hidden" asp-for="user.score" value=@Model.user.score />
-    <input type="hidden" asp-for="user.Id" value="@Model.user.Id" />
+    <input type="hidden" asp-for="user.Id" value="@UserManager.GetUserId(User)" />
+    <input type="hidden" asp-for="user.name" value="@UserManager.GetUserName(User)" />
     <button type="submit" id="Done">Done</button>
 </form>
 
