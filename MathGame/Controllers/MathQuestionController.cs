@@ -92,10 +92,11 @@ namespace MathGame.Controllers
                     await mathGameDbContext.SaveChangesAsync();
                 }
             }
+            
             var viewModel = new ScoreboardModel()
             {
                 user = model.user,
-                allUsers = await mathGameDbContext.users.ToListAsync()
+                allUsers = await mathGameDbContext.users.OrderByDescending(u => u.score).ToListAsync()
             };
             return View(viewModel);
         }
