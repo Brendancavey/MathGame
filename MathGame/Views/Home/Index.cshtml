@@ -4,5 +4,13 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h2>How to play</h2>
+    <ul style="list-style: none;">
+        <li>Answer as many questions as you can</li>
+        <li>The timer resets every time you answer a question</li>
+        <li>Correct answers increases your score by 1</li>
+        <li>Incorrect answers decreases your score by 1</li>
+        <li>Pressing on the 'Done' button or having the timer reach 0 is game over</li>
+    </ul>
+    <a class="btn btn-primary" asp-area="" asp-controller="MathQuestion" asp-action="Random">Play</a>
 </div>
