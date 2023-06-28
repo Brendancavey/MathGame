@@ -3,10 +3,14 @@
 @{
     ViewData["Title"] = "Scoreboard";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    
+
 }
-<h1>Your final score: @Model.user.score</h1>
-<h1>Leaderboards</h1>
+@if (Model.user != null)
+{
+    <h1>Your final score: @Model.user.score</h1>
+}
+
+<h1>Leaderboard</h1>
 <table class="table">
     <thead>
         <tr>

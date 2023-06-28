@@ -3,6 +3,6 @@
     public class ScoreboardModel
     {
         public List<ApplicationUser> allUsers { get; set; }
-        public ApplicationUser user { get; set; }
+        public ApplicationUser? user { get; set; }
     }
 }

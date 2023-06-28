@@ -79,6 +79,16 @@ namespace MathGame.Controllers
             return View(viewModel);
 
         }
+        [HttpGet]
+        public async Task<IActionResult> Scoreboard()
+        {
+            var viewModel = new ScoreboardModel()
+            {
+                user = null,
+                allUsers = await mathGameDbContext.users.OrderByDescending(u => u.score).ToListAsync()
+            };
+            return View(viewModel);
+        }
         [HttpPost]
         public async Task<IActionResult> Scoreboard(QuestionModel model)
         {
