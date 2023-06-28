@@ -4,6 +4,9 @@ using System.Security.Cryptography.X509Certificates;
 using MathGame.Data;
 using MathGame.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using MathGame.Utility;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace MathGame.Controllers
 {
@@ -14,14 +17,14 @@ namespace MathGame.Controllers
         {
             this.mathGameDbContext = mathGameDbContext;
         }
-
+        //[Area("Admin")]
+        //[Authorize(Roles = StaticDetails.Role_Admin)]
         [HttpGet]
         public IActionResult Random()
         {
-            Random rand = new Random();
             var math_question = new MathQuestion();
             
-            var user = new User()
+            var user = new ApplicationUser()
             {
                 name = "Bob",
                 score = 0
@@ -29,22 +32,37 @@ namespace MathGame.Controllers
             var viewModel = new QuestionModel()
             {
                 question = math_question,
-                user = user
+                user = user,
             };
             //mathGameDbContext.users.Add(user);
             //mathGameDbContext.SaveChanges();
             return View(viewModel);
         }
-
+        
         [HttpPost]
         public ActionResult Random(QuestionModel model)
         {
+            Random rand = new Random();
             var user_answer = model.question.user_answer;
             if (user_answer == model.question.answer)
             {
                 model.user.score += 1;
             }
-            var question = new MathQuestion();
+            else if (model.user.score > 0)
+            {
+                model.user.score -= 1;
+            }
+            if (model.user.score % 5 == 0 && model.user.score > 0)
+            {
+                model.question.difficulty += 1;
+            }
+            var question = new MathQuestion()
+            {
+                num1 = (rand.Next(1, 11 * model.question.difficulty)) * (model.question.difficulty),
+                num2 = (rand.Next(1, 11 * model.question.difficulty)) * (model.question.difficulty),
+                difficulty = model.question.difficulty,
+            };
+            question.getNewAnswer();
 
             var user = model.user;
 
@@ -54,12 +72,22 @@ namespace MathGame.Controllers
                 user = user
             };
 
-            // mathGameDbContext.users.Add(user);
-            // mathGameDbContext.SaveChanges();
+            //mathGameDbContext.mathQuestions.Add(model.question);
+            //mathGameDbContext.SaveChanges();
 
             ModelState.Clear();
             return View(viewModel);
-        }
 
+        }
+        [HttpPost]
+        public ActionResult Scoreboard(QuestionModel model)
+        {
+            var user = new ApplicationUser()
+            {
+                score = model.user.score
+            };
+            return View(user);
+            
+        }
     }
 }
