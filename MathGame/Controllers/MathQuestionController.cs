@@ -54,7 +54,7 @@ namespace MathGame.Controllers
             }
             if (model.user.score % 5 == 0 && model.user.score > 0)
             {
-                model.question.difficulty += 1;
+                model.question.difficulty += model.question.difficulty;
             }
             var question = new MathQuestion()
             {
