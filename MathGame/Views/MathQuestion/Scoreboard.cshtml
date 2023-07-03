@@ -6,8 +6,11 @@
 
 }
 @if (Model.user != null)
-{
-    <h1>Your final score: @Model.user.score</h1>
+{   <h1>Session Details</h1>
+    <h2>Your final score: @Model.user.sessionScore</h2>
+    <h2>Highest score streak: @Model.user.highestSessionStreak</h2>
+    <h2>Highest streak of all time: @Model.user.highestStreak</h2>
+
 }
 
 <h1>Leaderboard</h1>

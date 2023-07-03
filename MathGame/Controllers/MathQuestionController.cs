@@ -44,29 +44,47 @@ namespace MathGame.Controllers
         {
             Random rand = new Random();
             var user_answer = model.question.user_answer;
+            int scoreGenerator = 0;
+            ///////////SCORE GENERATOR//////////////////
             if (user_answer == model.question.answer)
             {
                 if (model.question.timeLeft >= 8)
                 {
-                    model.user.score += 3;
+                    scoreGenerator = 3;
                 }
                 else if (model.question.timeLeft >= 5)
                 {
-                    model.user.score += 2;
+                    scoreGenerator = 2;
                 }
                 else
                 {
-                    model.user.score += 1;
-                }       
-            }
+                    scoreGenerator = 1;
+                }
+                if (model.user.scoreStreak > 1)
+                {
+                    scoreGenerator = scoreGenerator * 2;
+                }
+                model.user.correctQuestionsAnswered += 1;
+                model.user.scoreStreak += 1;
+                model.user.score += scoreGenerator;
+                //Checking for new personal high streak score
+                if (model.user.scoreStreak > model.user.highestSessionStreak)
+                {
+                    model.user.highestSessionStreak = model.user.scoreStreak;
+                }
+            } 
             else if (model.user.score > 0)
             {
                 model.user.score -= 1;
+                model.user.scoreStreak = 0;
             }
+            model.user.totalQuestionsAnswered += 1;
+            ///////////DIFFICULTY MODIFIER///////////////
             if (model.user.score % 5 == 0 && model.user.score > 0)
             {
                 model.question.difficulty += model.question.difficulty;
             }
+            //////////INSTANTIATING NEW MODELS/////////////
             var question = new MathQuestion()
             {
                 num1 = (rand.Next(1, 11 * model.question.difficulty)) * (model.question.difficulty),
@@ -106,17 +124,24 @@ namespace MathGame.Controllers
             var player = await mathGameDbContext.users.FindAsync(model.user.Id);
             if (player != null)
             {
+                player.sessionScore = model.user.score;
+                player.highestSessionStreak = model.user.highestSessionStreak;
+                //Setting new high score
                 if (model.user.score > player.score)
                 {
                     player.name = model.user.name;
                     player.score = model.user.score;
-                    await mathGameDbContext.SaveChangesAsync();
                 }
+                if (model.user.highestSessionStreak > player.highestStreak)
+                {
+                    player.highestStreak = model.user.highestSessionStreak;
+                }
+                await mathGameDbContext.SaveChangesAsync();
             }
             
             var viewModel = new ScoreboardModel()
             {
-                user = model.user,
+                user = player,
                 allUsers = await mathGameDbContext.users.OrderByDescending(u => u.score).ToListAsync()
             };
             return View(viewModel);

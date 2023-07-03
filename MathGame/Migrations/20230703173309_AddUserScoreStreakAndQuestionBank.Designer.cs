@@ -4,6 +4,7 @@ using MathGame.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MathGame.Migrations
 {
     [DbContext(typeof(MathGameDbContext))]
-    partial class MathGameDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230703173309_AddUserScoreStreakAndQuestionBank")]
+    partial class AddUserScoreStreakAndQuestionBank
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -267,12 +270,6 @@ namespace MathGame.Migrations
                     b.Property<int>("correctQuestionsAnswered")
                         .HasColumnType("int");
 
-                    b.Property<int>("highestSessionStreak")
-                        .HasColumnType("int");
-
-                    b.Property<int>("highestStreak")
-                        .HasColumnType("int");
-
                     b.Property<string>("name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -281,9 +278,6 @@ namespace MathGame.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("scoreStreak")
-                        .HasColumnType("int");
-
-                    b.Property<int>("sessionScore")
                         .HasColumnType("int");
 
                     b.Property<int>("totalQuestionsAnswered")

@@ -9,10 +9,15 @@
     int timeRemaining = Convert.ToInt32(TimeSpan.FromTicks(endTime.Ticks - DateTime.Now.Ticks).TotalSeconds);
 }
 <h1>Time Remaining: <span id="secRemaining"></span></h1>
+@if (Model.user.scoreStreak != 0)
+{
+    <h3 stye="text-align:right">Streak: x @Model.user.scoreStreak</h3>
+}
 <h1>Question</h1>
 
 <h3>@Model.question.getQuestion()</h3>
 <h3 style="text-align:right">Score @Model.user.score</h3>
+
 
 <form asp-action="Random" asp-controller="MathQuestion" method="post">
     <input type="hidden" asp-for="question.num1" value=@Model.question.num1/>
@@ -22,6 +27,11 @@
     <input type="hidden" asp-for="question.timeLeft">
     <input type="hidden" asp-for="user" value=@Model.user/>
     <input type="hidden" asp-for="user.score" value=@Model.user.score/>
+    <input type="hidden" asp-for="user.scoreStreak" value="@Model.user.scoreStreak"/>
+    <input type="hidden" asp-for="user.highestStreak" value="@Model.user.highestStreak" />
+    <input type="hidden" asp-for="user.highestSessionStreak" value="@Model.user.highestSessionStreak" />
+    <input type="hidden" asp-for="user.correctQuestionsAnswered" value="@Model.user.correctQuestionsAnswered" />
+    <input type="hidden" asp-for="user.totalQuestionsAnswered" value="@Model.user.totalQuestionsAnswered" />
     
     <label>Answer:</label>
     <input asp-for="question.user_answer" autofocus="autofocus" />
@@ -29,6 +39,11 @@
 </form>
 <form asp-action="Scoreboard" asp-asp-controller="MathQuestion" >
     <input type="hidden" asp-for="user.score" value=@Model.user.score />
+    <input type="hidden" asp-for="user.scoreStreak" value="@Model.user.scoreStreak" />
+    <input type="hidden" asp-for="user.highestStreak" value="@Model.user.highestStreak" />
+    <input type="hidden" asp-for="user.highestSessionStreak" value="@Model.user.highestSessionStreak" />
+    <input type="hidden" asp-for="user.correctQuestionsAnswered" value="@Model.user.correctQuestionsAnswered" />
+    <input type="hidden" asp-for="user.totalQuestionsAnswered" value="@Model.user.totalQuestionsAnswered" />
     <input type="hidden" asp-for="user.Id" value="@UserManager.GetUserId(User)" />
     <input type="hidden" asp-for="user.name" value="@UserManager.GetUserName(User)" />
     <button type="submit" id="Done">Done</button>
