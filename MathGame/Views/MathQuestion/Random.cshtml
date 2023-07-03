@@ -19,6 +19,7 @@
     <input type="hidden" asp-for="question.num2" value=@Model.question.num2/>
     <input type="hidden" asp-for="question.answer" value=@Model.question.answer/>
     <input type="hidden" asp-for="question.difficulty" value="@Model.question.difficulty"/>
+    <input type="hidden" asp-for="question.timeLeft">
     <input type="hidden" asp-for="user" value=@Model.user/>
     <input type="hidden" asp-for="user.score" value=@Model.user.score/>
     
@@ -37,6 +38,7 @@
 
 <script>
     var remainingSeconds = @timeRemaining;
+    var timeLeftInput = document.getElementById("question_timeLeft");
     function startTick(){
         document.getElementById('secRemaining').innerText = remainingSeconds;
 
@@ -46,6 +48,7 @@
             {
                 remainingSeconds = remainingSeconds-1;
                 document.getElementById('secRemaining').innerText = remainingSeconds;
+                timeLeftInput.value = remainingSeconds;
             }
             else
             {

@@ -46,7 +46,18 @@ namespace MathGame.Controllers
             var user_answer = model.question.user_answer;
             if (user_answer == model.question.answer)
             {
-                model.user.score += 1;
+                if (model.question.timeLeft >= 8)
+                {
+                    model.user.score += 3;
+                }
+                else if (model.question.timeLeft >= 5)
+                {
+                    model.user.score += 2;
+                }
+                else
+                {
+                    model.user.score += 1;
+                }       
             }
             else if (model.user.score > 0)
             {
@@ -62,7 +73,7 @@ namespace MathGame.Controllers
                 num2 = (rand.Next(1, 11 * model.question.difficulty)) * (model.question.difficulty),
                 difficulty = model.question.difficulty,
             };
-            question.getNewAnswer();
+            question.getNewAnswer(); //calculates new answer from newly generated numbers
 
             var user = model.user;
 

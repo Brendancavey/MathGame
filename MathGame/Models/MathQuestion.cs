@@ -7,6 +7,7 @@ namespace MathGame.Models
     {
         public int Id { get; set; }
         public int difficulty { get; set; }
+        public int timeLeft { get; set; }
         public int num1 { get; set; }
         public int num2 { get; set; }
         public string answer { get; set; }
